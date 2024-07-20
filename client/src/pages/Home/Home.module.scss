@@ -1,0 +1,48 @@
+.wrapper {
+}
+
+.image {
+    width: 100vw;
+    aspect-ratio: 3/1;
+    max-width: 1440px;
+
+    object-fit: cover;
+    object-position: top;
+
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.content {
+    margin: 12px 0;
+}
+
+.full-width {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.label {
+    font-size: 40px;
+}
+
+.grid-row {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.home-panel {
+    width: 100%;
+    aspect-ratio: 1.16;
+}
+
+.panel-row {
+    margin-left: -32px;
+    margin-right: -32px;
+}
+
+.panel-col {
+    padding: 0 32px;
+}

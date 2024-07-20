@@ -1,0 +1,33 @@
+.register-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: -24px;
+}
+
+.register-input {
+    width: 48%;
+    height: 68px;
+    font-size: 1.6rem;
+
+    margin-top: 24px;
+}
+
+.submit-btn {
+    color: black;
+    font-size: 1.6rem;
+    font-weight: 600;
+    height: 40px;
+    margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+    .register-input {
+        height: 48px;
+        margin-top: 64px;
+    }
+
+    .submit-btn {
+        margin-top: 64px;
+    }
+}

@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action {
+    display: flex;
+    align-items: center;
+    margin: 0 24px;
+    cursor: pointer;
+}
+
+.action-icon,
+.action-down-icon {
+    display: block;
+    font-size: 2rem;
+    color: var(--theme-color);
+}
+
+.action-label {
+    margin: 0 8px;
+}
+
+@media (max-width: 768px) {
+    .action {
+        margin: 0 8px;
+
+        font-size: 1.2rem;
+    }
+}

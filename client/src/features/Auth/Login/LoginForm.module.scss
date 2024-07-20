@@ -1,0 +1,18 @@
+button.submit-btn {
+    color: black;
+    font-size: 1.6rem;
+    font-weight: 600;
+    height: 40px;
+    margin-top: 32px;
+}
+
+.login-input {
+    height: 68px;
+    font-size: 1.6rem;
+}
+
+@media (max-width: 768px) {
+    .login-input {
+        height: 48px;
+    }
+}

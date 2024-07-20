@@ -1,0 +1,18 @@
+.menu {
+    width: 150px;
+}
+
+a.menu-item,
+button.menu-item {
+    display: block;
+    width: 100%;
+    text-align: start;
+    color: black;
+    font-size: 1.6rem;
+
+    background-color: transparent;
+
+    &:hover {
+        background-color: #ebebeb;
+    }
+}
