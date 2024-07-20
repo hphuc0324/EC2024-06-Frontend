@@ -1,5 +1,6 @@
 import * as layouts from 'layouts';
 import * as pages from 'pages';
+import { element } from 'prop-types';
 
 const routes = [
     {
@@ -14,6 +15,21 @@ const routes = [
     {
         path: '/auth/register',
         element: pages.RegisterPage,
+    },
+    {
+        path: '/about',
+        element: pages.AboutPage,
+        layout: layouts.DefaultLayout,
+    },
+    {
+        path: '/contact',
+        element: pages.ContactPage,
+        layout: layouts.DefaultLayout,
+    },
+    {
+        path: '/search',
+        element: pages.SearchPage,
+        layout: layouts.DefaultLayout,
     },
 ];
 

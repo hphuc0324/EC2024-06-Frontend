@@ -14,7 +14,7 @@ function Login() {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', 'login')}>
             <img className={cx('logo')} src={images.logo} alt="logo" />
             <div className={cx('container', 'login-container')}>
                 <h1 className={cx('header')}>login</h1>

@@ -1,0 +1,20 @@
+.wrapper {
+    padding: 32px;
+}
+.search-title {
+    margin-top: 16px;
+
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.search-details {
+    margin: 8px 0;
+}
+
+.search-title,
+.search-details {
+    display: block;
+    width: 100%;
+    text-align: center;
+}

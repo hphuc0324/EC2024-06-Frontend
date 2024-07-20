@@ -34,8 +34,6 @@ function LoginForm(props) {
     const handleSubmit = async (values) => {
         const { onSubmit } = props;
 
-        console.log(values);
-
         await onSubmit(values);
     };
 

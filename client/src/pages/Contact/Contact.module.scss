@@ -1,0 +1,26 @@
+.wrapper {
+    padding: 32px;
+}
+
+.page-header {
+    display: inline-block;
+    width: 100%;
+    font-weight: 600;
+    margin-top: 16px;
+}
+
+.contact-header {
+    display: inline-block;
+    font-size: 3rem;
+    color: var(--theme-color);
+    margin: 12px 0;
+}
+
+.contact-panel {
+    width: 100%;
+    height: 425px;
+    margin: 32px 0;
+
+    object-fit: cover;
+    object-position: center;
+}
