@@ -14,11 +14,11 @@ export const USER_MENU = [
 export const GUEST_MENU = [
     {
         label: 'Log In',
-        to: 'auth/login',
+        to: '/auth/login',
     },
     {
         label: 'Register',
-        to: 'auth/register',
+        to: '/auth/register',
     },
 ];
 
@@ -34,5 +34,9 @@ export const CAKE_CATEGORIES = [
     {
         label: 'Sale',
         to: '/category/?sale=true',
+    },
+    {
+        label: 'All',
+        to: '/category',
     },
 ];

@@ -1,4 +1,6 @@
 .wrapper {
+    position: relative;
+
     &.horizontal {
         display: flex;
         align-items: start;
@@ -15,13 +17,13 @@
             align-items: end;
         }
 
-        .product-old-price {
+        .product-new-price {
             font-weight: 600;
             color: black;
         }
 
         .product-prices {
-            margin: 12px 0;
+            margin-top: 12px;
         }
 
         .product-name {
@@ -34,7 +36,24 @@
 
 .product-cover {
     max-width: 350px;
+    width: 100%;
     aspect-ratio: 0.85;
+    object-fit: cover;
+}
+
+.product-discount-tag {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+
+    text-align: center;
+    font-weight: 600;
+
+    width: 48px;
+    height: 28px;
+    padding: 4px;
+    background-color: white;
+    color: red;
 }
 
 .product-info {
@@ -43,11 +62,15 @@
     align-items: center;
 }
 
-.product-name,
-.product-old-price {
+.product-name {
     display: block;
 }
 
 .product-prices {
     color: #636363;
+}
+
+.product-old-price {
+    text-decoration: line-through;
+    margin-left: 8px;
 }
