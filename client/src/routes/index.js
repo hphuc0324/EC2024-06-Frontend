@@ -31,6 +31,11 @@ const routes = [
         element: pages.SearchPage,
         layout: layouts.DefaultLayout,
     },
+    {
+        path: 'category',
+        element: pages.CategoryPage,
+        layout: layouts.DefaultLayout,
+    },
 ];
 
 export default routes;
