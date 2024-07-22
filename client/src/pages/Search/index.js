@@ -3,6 +3,7 @@ import styles from './Search.module.scss';
 import useQuery from 'hooks/useQuery';
 import { useEffect } from 'react';
 import Product from 'features/Product/Product';
+import ProductList from 'features/Product/ProductList';
 
 const cx = classNames.bind(styles);
 
@@ -18,11 +19,11 @@ function Search() {
             <span>
                 Home / <b>Search</b>
             </span>
-            <div>
+            <div className={cx('content')}>
                 <span className={cx('search-title')}>Result</span>
                 <span className={cx('search-details')}>There is 1 product for your search</span>
 
-                <Product />
+                <ProductList products={[1, 2, 3, 5]} itemPerRow={1} productLayout="horizontal" />
             </div>
         </div>
     );

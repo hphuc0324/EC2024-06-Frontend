@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './SearchBar.module.scss';
 import InputField from 'components/FormControls/InputField';
@@ -11,13 +11,23 @@ import OtherActions from './OtherActions';
 const cx = classNames.bind(styles);
 
 function SearchBar() {
+    const navigate = useNavigate();
+
     const form = useForm({
         defaultValues: {
             productName: '',
         },
     });
 
-    const handleSubmit = async () => {};
+    const handleSubmit = async (value) => {
+        const { productName } = value;
+
+        if (productName.trim() === '') {
+            return;
+        }
+
+        navigate(`/search/?name=${productName}`);
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -26,7 +36,7 @@ function SearchBar() {
             </Link>
 
             <form onSubmit={form.handleSubmit(handleSubmit)} className={cx('search-form')}>
-                <button className={cx('search-icon')}>
+                <button type="submit" className={cx('search-icon')}>
                     <FontAwesomeIcon icon={faSearch} />
                 </button>
                 <InputField

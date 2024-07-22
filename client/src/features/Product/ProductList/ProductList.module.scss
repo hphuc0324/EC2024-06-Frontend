@@ -1,0 +1,13 @@
+.wrapper {
+    width: 100%;
+}
+
+.product-row {
+    margin-top: 12px;
+    margin-bottom: 12px;
+
+    &.horizontal-item {
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+}

@@ -13,8 +13,6 @@ const cx = classNames.bind(styles);
 function NavBar() {
     const location = useLocation();
 
-    console.log(location.pathname);
-
     return (
         <div className={cx('wrapper')}>
             <Link className={cx('nav-item', { active: location.pathname === '/' })} to="/">
