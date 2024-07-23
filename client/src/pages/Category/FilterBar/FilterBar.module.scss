@@ -1,0 +1,46 @@
+.filter-block {
+    margin: 32px 0;
+}
+
+.filter-title {
+    font-weight: 600;
+}
+
+.filter-value {
+    display: block;
+    margin: 12px 0;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &:active {
+        color: var(--theme-color);
+    }
+
+    &.active {
+        color: var(--theme-color);
+    }
+}
+
+input[type='radio'] {
+    margin-right: 8px;
+
+    -webkit-appearance: none;
+    border-radius: 50%;
+    outline: 1px solid black;
+
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+
+    position: relative;
+    width: 15px;
+
+    &:checked {
+        border: 3px solid white;
+        background-color: var(--theme-color);
+        outline-color: var(--theme-color);
+    }
+}

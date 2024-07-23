@@ -25,15 +25,15 @@ export const GUEST_MENU = [
 export const CAKE_CATEGORIES = [
     {
         label: 'Whipping',
-        to: '/category/?type=whipping',
+        to: '/category?type=whipping',
     },
     {
         label: 'Topping',
-        to: '/category/?type=topping',
+        to: '/category?type=topping',
     },
     {
         label: 'Sale',
-        to: '/category/?sale=true',
+        to: '/category?sale=true',
     },
     {
         label: 'All',

@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 import useQuery from 'hooks/useQuery';
 import { useEffect } from 'react';
-import Product from 'features/Product/Product';
 import ProductList from 'features/Product/ProductList';
 
 const cx = classNames.bind(styles);

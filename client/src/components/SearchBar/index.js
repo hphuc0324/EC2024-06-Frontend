@@ -26,7 +26,7 @@ function SearchBar() {
             return;
         }
 
-        navigate(`/search/?name=${productName}`);
+        navigate(`/search?name=${productName}`);
     };
 
     return (

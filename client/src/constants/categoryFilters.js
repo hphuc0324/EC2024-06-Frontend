@@ -1,6 +1,6 @@
 export const CAKE_TYPE_FILTER = {
-    filterTitle: 'Type',
-    filterValues: [
+    title: 'Type',
+    values: [
         {
             title: 'Whipping',
             value: 'whipping',
@@ -13,8 +13,8 @@ export const CAKE_TYPE_FILTER = {
 };
 
 export const CAKE_FLAVOR_FILTER = {
-    filterTitle: 'Flavor',
-    filterValues: [
+    title: 'Flavor',
+    values: [
         {
             title: 'Strawberry',
             value: 'strawberry',
@@ -43,8 +43,8 @@ export const CAKE_FLAVOR_FILTER = {
 };
 
 export const CAKE_SIZE_FILTER = {
-    filterTitle: 'Size',
-    filterValues: [
+    title: 'Size',
+    values: [
         {
             title: 'Small',
             value: 'small',
@@ -61,8 +61,8 @@ export const CAKE_SIZE_FILTER = {
 };
 
 export const CAKE_SHAPE_FILTER = {
-    filterTitle: 'Shape',
-    filterValues: [
+    title: 'Shape',
+    values: [
         {
             title: 'Round',
             value: 'round',
@@ -79,48 +79,58 @@ export const CAKE_SHAPE_FILTER = {
 };
 
 export const CAKE_PRICE_FILTER = {
-    filterTitle: 'Price',
-    filterValues: [
+    title: 'Price',
+    values: [
         {
             title: 'Under 100.000VND',
             value: {
-                min: 0,
-                max: 99999,
+                min: '0',
+                max: '99999',
             },
         },
         {
             title: '100.000VND - 200.000VND',
             value: {
-                min: 100000,
-                max: 200000,
+                min: '100000',
+                max: '200000',
             },
         },
         {
             title: '200.000VND - 300.000VND',
             value: {
-                min: 200000,
-                max: 300000,
+                min: '200000',
+                max: '300000',
             },
         },
         {
             title: '300.000VND - 400.000VND',
             value: {
-                min: 300000,
-                max: 400000,
+                min: '300000',
+                max: '400000',
             },
         },
         {
             title: '400.000VND - 500.000VND',
             value: {
-                min: 400000,
-                max: 500000,
+                min: '400000',
+                max: '500000',
             },
         },
         {
             title: 'Over 500.000VND',
             value: {
-                min: 500000,
+                min: '500000',
+                max: '999999999999999',
             },
         },
     ],
+    radioButton: true,
 };
+
+export const FILTER_CONSTANTS = [
+    CAKE_TYPE_FILTER,
+    CAKE_FLAVOR_FILTER,
+    CAKE_SIZE_FILTER,
+    CAKE_SHAPE_FILTER,
+    CAKE_PRICE_FILTER,
+];
