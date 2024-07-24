@@ -1,10 +1,14 @@
-import classNames from 'classnames/bind';
-
-import styles from './Category.module.scss';
-import { useState, useEffect } from 'react';
-import FilterBar from './FilterBar';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+import { Pagination } from '@mui/material';
+
+import classNames from 'classnames/bind';
+import styles from './Category.module.scss';
+
 import useQuery from 'hooks/useQuery';
+import ProductList from 'features/Product/ProductList';
+import FilterBar from './FilterBar';
 
 const cx = classNames.bind(styles);
 
@@ -18,16 +22,29 @@ function Category() {
         size: '',
         shape: '',
         price: {},
+        page: 1,
+        limit: 9,
     });
 
     const query = useQuery();
     //Sync filters to URL
     const handleFilterChange = (value, name) => {
-        if (name === 'price') {
-            query.set('min', value.min);
-            query.set('max', value.max);
-        } else {
-            query.set(name, value);
+        //Delete filters if already present
+        if (query.get(name) === value) {
+            query.delete(name);
+        } //Add filters
+        else {
+            if (name === 'price') {
+                if (query.get('min') === value.min && query.get('max') === value.max) {
+                    query.delete('min');
+                    query.delete('max');
+                } else {
+                    query.set('min', value.min);
+                    query.set('max', value.max);
+                }
+            } else {
+                query.set(name, value);
+            }
         }
 
         navigate(`?${query.toString()}`, { replace: true });
@@ -35,7 +52,7 @@ function Category() {
 
     //Update filters based on URL query parameters
     useEffect(() => {
-        setFilters({
+        setFilters((prev) => ({
             type: query.get('type') || '',
             flavor: query.get('flavor') || '',
             size: query.get('size') || '',
@@ -44,12 +61,32 @@ function Category() {
                 min: query.get('min'),
                 max: query.get('max'),
             },
-        });
+            ...prev,
+        }));
     }, [location.search]);
+
+    useEffect(() => {
+        //Fetch product information
+        console.log(filters.page);
+    }, [filters]);
 
     return (
         <div className={cx('wrapper')}>
             <FilterBar filters={filters} onFilterChange={handleFilterChange} />
+            <div className={cx('products')}>
+                <ProductList itemPerRow={3} products={[1, 2, 3, 4, 5, 6, 7, 8]} />
+                <Pagination
+                    sx={{
+                        '& .MuiButtonBase-root.MuiPaginationItem-root': {
+                            fontSize: '1.3rem',
+                        },
+                    }}
+                    className={cx('pagination-bar')}
+                    count={5}
+                    size="large"
+                    onChange={(e, value) => setFilters((prev) => ({ ...prev, page: value }))}
+                />
+            </div>
         </div>
     );
 }

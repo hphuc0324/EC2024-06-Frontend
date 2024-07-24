@@ -1,6 +1,5 @@
 import * as layouts from 'layouts';
 import * as pages from 'pages';
-import { element } from 'prop-types';
 
 const routes = [
     {
