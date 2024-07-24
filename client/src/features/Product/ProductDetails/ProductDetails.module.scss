@@ -1,0 +1,48 @@
+span {
+    display: block;
+}
+
+.wrapper {
+    padding: 32px;
+}
+
+.product-cover {
+    max-width: 500px;
+    aspect-ratio: 1/ 0.9;
+}
+
+.product-section {
+    display: flex;
+}
+
+.product-info {
+    margin-left: 32px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-name {
+    font-size: 2.5rem;
+    color: var(--theme-color);
+}
+
+.flex-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.left-col {
+    width: 200px !important;
+}
+
+.col-title {
+    font-size: 2rem;
+}
+
+.product-old-price {
+    font-size: 1.8rem;
+    color: #777;
+    text-decoration: line-through;
+}
