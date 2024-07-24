@@ -1,4 +1,5 @@
 .wrapper {
+    display: block;
     position: relative;
 
     &.horizontal {
@@ -35,7 +36,6 @@
 }
 
 .product-cover {
-    max-width: 350px;
     width: 100%;
     aspect-ratio: 0.85;
     object-fit: cover;

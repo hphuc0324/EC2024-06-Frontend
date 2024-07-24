@@ -4,3 +4,4 @@ export { default as RegisterPage } from './Auth/Register';
 export { default as AboutPage } from './About';
 export { default as ContactPage } from './Contact';
 export { default as SearchPage } from './Search';
+export { default as CategoryPage } from './Category';

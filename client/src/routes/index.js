@@ -1,6 +1,5 @@
 import * as layouts from 'layouts';
 import * as pages from 'pages';
-import { element } from 'prop-types';
 
 const routes = [
     {
@@ -29,6 +28,11 @@ const routes = [
     {
         path: '/search',
         element: pages.SearchPage,
+        layout: layouts.DefaultLayout,
+    },
+    {
+        path: 'category',
+        element: pages.CategoryPage,
         layout: layouts.DefaultLayout,
     },
 ];

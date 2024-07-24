@@ -1,0 +1,19 @@
+.wrapper {
+    padding: 32px;
+    display: flex;
+}
+
+.products {
+    flex: 1;
+}
+
+.pagination-bar {
+    margin-top: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    & .MuiButtonBase-root.MuiPaginationItem-root {
+        font-size: 2rem;
+    }
+}
