@@ -9,7 +9,7 @@ import images from 'assets/images';
 const cx = classNames.bind(styles);
 
 function Login() {
-    const hanldeSubit = () => {
+    const hanldeSubit = (values) => {
         console.log('submit');
     };
 

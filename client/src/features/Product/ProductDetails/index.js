@@ -3,27 +3,26 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 
 import styles from './ProductDetails.module.scss';
-import images from 'assets/images';
 import { useParams } from 'react-router-dom';
-import { Rating } from '@mui/material';
-import { toVND } from 'utils/currencyConverter';
-import Button from 'components/Button';
+
 import ProductSection from './ProductSection';
 import ReviewSection from './ReviewSection';
+import ProductList from '../ProductList';
 
 const cx = classNames.bind(styles);
 
 ProductDetails.propTypes = {
     product: PropTypes.object.isRequired,
+    productConfig: PropTypes.object.isRequired,
+    setProductConfig: PropTypes.func.isRequired,
+
+    reviews: PropTypes.array.isRequired,
+    reviewsCount: PropTypes.number.isRequired,
+    onReviewPageChange: PropTypes.func.isRequired,
 };
 
 function ProductDetails(props) {
-    const { _id } = useParams();
-    const [productConfig, setProductConfig] = useState({
-        _id: _id,
-        quantity: 1,
-        size: 'small',
-    });
+    const { product, productConfig, setProductConfig, reviews, reviewsCount, onReviewPageChange } = props;
 
     const handleQuantityChange = (value) => {
         setProductConfig((prev) => ({ ...prev, quantity: prev.quantity + value }));
@@ -156,9 +155,11 @@ function ProductDetails(props) {
                 onQuantityChange={handleQuantityChange}
                 onSizeChange={handleSizeChange}
             />
-            <div className={cx('review-section')}>
-                <ReviewSection />
-            </div>
+
+            <ReviewSection reviews={reviews} reviewsCount={reviewsCount} onReviewPageChange={onReviewPageChange} />
+
+            <span className={cx('related-title')}>RELATED PRODUCTS</span>
+            <ProductList products={[1, 2, 3, 4, 5, 6]} itemPerRow={3} />
         </div>
     );
 }
