@@ -35,6 +35,11 @@ const routes = [
         element: pages.CategoryPage,
         layout: layouts.DefaultLayout,
     },
+    {
+        path: '/product/:id',
+        element: pages.ProductPage,
+        layout: layouts.DefaultLayout,
+    },
 ];
 
 export default routes;

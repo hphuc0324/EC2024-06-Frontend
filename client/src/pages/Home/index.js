@@ -20,13 +20,13 @@ function Home() {
 
                 <div className={`row ${cx('panel-row', 'grid-row')}`}>
                     <div className={`col c-4 ${cx('panel-col')}`}>
-                        <img className={cx('home-panel')} src={images.homePanles[0]} />
+                        <img className={cx('home-panel')} src={images.homePanels[0]} />
                     </div>
                     <div className={`col c-4 ${cx('panel-col')}`}>
-                        <img className={cx('home-panel')} src={images.homePanles[0]} />
+                        <img className={cx('home-panel')} src={images.homePanels[0]} />
                     </div>
                     <div className={`col c-4 ${cx('panel-col')}`}>
-                        <img className={cx('home-panel')} src={images.homePanles[0]} />
+                        <img className={cx('home-panel')} src={images.homePanels[0]} />
                     </div>
                 </div>
             </div>

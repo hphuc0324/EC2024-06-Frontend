@@ -5,3 +5,4 @@ export { default as AboutPage } from './About';
 export { default as ContactPage } from './Contact';
 export { default as SearchPage } from './Search';
 export { default as CategoryPage } from './Category';
+export { default as ProductPage } from './Product';
