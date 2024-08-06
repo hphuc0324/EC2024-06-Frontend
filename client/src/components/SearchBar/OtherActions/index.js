@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
@@ -34,9 +35,9 @@ function OtherActions() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('action')}>
-                <span className={cx('action-icon')}>
+                <Link to="/cart" className={cx('action-icon')}>
                     <FontAwesomeIcon icon={faShoppingCart} />
-                </span>
+                </Link>
                 <span className={cx('action-label')}>Cart</span>
             </div>
 

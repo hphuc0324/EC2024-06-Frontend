@@ -1,5 +1,6 @@
 import * as layouts from 'layouts';
 import * as pages from 'pages';
+import { element } from 'prop-types';
 
 const routes = [
     {
@@ -38,6 +39,11 @@ const routes = [
     {
         path: '/product/:id',
         element: pages.ProductPage,
+        layout: layouts.DefaultLayout,
+    },
+    {
+        path: '/cart',
+        element: pages.CartPage,
         layout: layouts.DefaultLayout,
     },
 ];

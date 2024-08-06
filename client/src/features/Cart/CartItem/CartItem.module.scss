@@ -1,0 +1,46 @@
+.wrapper {
+    + .wrapper {
+        margin-top: 32px;
+    }
+
+    align-items: center;
+}
+
+.item-image {
+    width: 100px;
+    aspect-ratio: 1/1;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.item-name {
+    color: var(--theme-color);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.item-info {
+    margin-left: 16px;
+}
+
+.item-action {
+    margin-top: 8px;
+}
+
+.action-icon {
+    color: var(--theme-color);
+    opacity: 0.75;
+
+    cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    + .action-icon {
+        margin-left: 8px;
+    }
+}
