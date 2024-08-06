@@ -16,6 +16,8 @@ FilterBar.propTypes = {
 function FilterBar(props) {
     const { filters, onFilterChange } = props;
 
+    console.log(filters);
+
     const renderFilter = (filter, key) => (
         <div key={key} className={cx('filter-block')}>
             <span className={cx('filter-title')}>{filter.title}</span>

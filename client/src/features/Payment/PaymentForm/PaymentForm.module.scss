@@ -1,0 +1,36 @@
+.wrapper {
+    padding: 32px !important;
+
+    * {
+        justify-content: space-between;
+    }
+}
+
+.form-field,
+.form-input {
+    background-color: rgba(217, 217, 217, 1);
+    color: black;
+}
+
+.form-input {
+    margin: 8px 0;
+    border-radius: 4px;
+}
+
+.form-field {
+    padding: 18px 12px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 0px !important;
+
+    & .form-input {
+        background-color: white;
+    }
+}
+
+.submit-btn {
+    font-size: 1.2rem;
+    border-radius: 4px;
+
+    width: 150px;
+}

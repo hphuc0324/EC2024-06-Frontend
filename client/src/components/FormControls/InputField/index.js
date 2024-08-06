@@ -16,10 +16,21 @@ InputField.propTypes = {
     placeholder: PropTypes.string,
     inputType: PropTypes.string,
     transparent: PropTypes.bool,
+    readOnly: PropTypes.bool,
 };
 
 function InputField(props) {
-    const { form, name, label, classNames, disabled, placeholder, inputType = 'text', transparent = false } = props;
+    const {
+        form,
+        name,
+        label,
+        classNames,
+        disabled,
+        placeholder,
+        inputType = 'text',
+        transparent = false,
+        readOnly = false,
+    } = props;
     const { errors } = form.formState;
     const hasErrors = !!errors[name];
 
@@ -40,6 +51,7 @@ function InputField(props) {
                         </div>
                     )}
                     <input
+                        readOnly={readOnly}
                         type={inputType}
                         className={classes}
                         placeholder={placeholder || ''}
