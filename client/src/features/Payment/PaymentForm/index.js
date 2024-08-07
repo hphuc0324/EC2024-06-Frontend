@@ -12,6 +12,11 @@ import InputField from 'components/FormControls/InputField';
 import { NUMBER_REGEX } from 'constants/inputFormat';
 import SelectField from 'components/FormControls/SelectField';
 import Button from 'components/Button';
+import CartList from 'features/Cart/CartList';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { showToast } from 'components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +30,7 @@ function PaymentForm(props) {
 
     const user = useSelector((state) => state.user);
 
-    const { onSubmit } = props;
+    const { onSubmit, products } = props;
 
     const schema = yup.object().shape({
         name: yup.string().required('Name is required'),
@@ -62,6 +67,10 @@ function PaymentForm(props) {
 
     const handleSubmit = async (values) => {
         await onSubmit(values);
+    };
+
+    const hanldeShowToast = () => {
+        showToast('hi', 'ngu');
     };
 
     return (
@@ -113,10 +122,23 @@ function PaymentForm(props) {
                         />
                     </div>
 
-                    <Button buttonType="submit" classNames={cx('submit-btn')}>
-                        Continue to payment method
-                    </Button>
+                    <div className={cx('action')}>
+                        <Link to="/cart">
+                            <FontAwesomeIcon icon={faCartShopping} />
+                            Cart
+                        </Link>
+
+                        <Button buttonType="submit" classNames={cx('submit-btn')}>
+                            Continue to payment method
+                        </Button>
+
+                        <button onClick={hanldeShowToast}>show toast</button>
+                    </div>
                 </form>
+
+                <div className="col c-6">
+                    <CartList cartItems={products} allowEdit={false} />
+                </div>
             </div>
         </div>
     );
