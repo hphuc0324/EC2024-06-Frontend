@@ -7,3 +7,4 @@ export { default as SearchPage } from './Search';
 export { default as CategoryPage } from './Category';
 export { default as ProductPage } from './Product';
 export { default as CartPage } from './Cart';
+export { default as PaymentPage } from './Payment';

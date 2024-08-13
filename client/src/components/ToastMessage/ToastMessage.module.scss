@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title,
+.toast-message {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+
+.toast-title {
+    font-weight: 600;
+}
+
+.toast-message {
+    font-size: 1.6rem;
+    margin: 12px 0;
+}
+
+.toast-image {
+    width: 100px;
+    height: auto;
+}

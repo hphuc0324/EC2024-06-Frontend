@@ -14,10 +14,11 @@ SelectField.propTypes = {
     label: PropTypes.string,
     classNames: PropTypes.string,
     placeholder: PropTypes.string,
+    onChange: PropTypes.func,
 };
 
 function SelectField(props) {
-    const { form, name, choices, label, classNames, placeholder } = props;
+    const { form, name, choices, label, classNames, placeholder, onChange: customOnChange } = props;
 
     const classes = cx('wrapper', {
         [classNames]: classNames,
@@ -34,7 +35,17 @@ function SelectField(props) {
                             {label}
                         </div>
                     )}
-                    <select name={name} onChange={onChange} onBlur={onBlur} value={value} className={classes}>
+                    <select
+                        name={name}
+                        onChange={(e) => {
+                            onChange(e);
+
+                            if (customOnChange) customOnChange(e);
+                        }}
+                        onBlur={onBlur}
+                        value={value}
+                        className={classes}
+                    >
                         {choices.map((choice, index) => (
                             <option key={index} value={choice.value}>
                                 {choice.label}

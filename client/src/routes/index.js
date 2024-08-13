@@ -46,6 +46,11 @@ const routes = [
         element: pages.CartPage,
         layout: layouts.DefaultLayout,
     },
+    {
+        path: '/payment',
+        element: pages.PaymentPage,
+        layout: layouts.DefaultLayout,
+    },
 ];
 
 export default routes;

@@ -10,12 +10,13 @@ import { faCircleMinus, faCirclePlus, faTrash } from '@fortawesome/free-solid-sv
 CartItem.propTypes = {
     item: PropTypes.object.isRequired,
     onQuantityChange: PropTypes.func.isRequired,
+    allowEdit: PropTypes.bool,
 };
 
 const cx = classNames.bind(styles);
 
 function CartItem(props) {
-    const { item, onQuantityChange } = props;
+    const { item, onQuantityChange, allowEdit } = props;
 
     const handleQuantityChange = async (value) => {
         await onQuantityChange(value);
@@ -23,25 +24,27 @@ function CartItem(props) {
 
     return (
         <div className={`row ${cx('wrapper')}`}>
-            <div className={`${cx('item')} col c-5`}>
+            <div className={`${cx('item')} col c-${allowEdit ? 5 : 7}`}>
                 <img className={cx('item-image')} src={images.homePanels[0]} />
                 <div className={cx('item-info')}>
                     <span className={cx('item-name')}>{item.name || 'peachy cake'}</span>
-                    <div className={cx('item-action')}>
-                        <span className={cx('action-icon')}>
-                            <FontAwesomeIcon icon={faCirclePlus} onClick={() => handleQuantityChange(1)} />
-                        </span>
-                        <span className={cx('action-icon')}>
-                            <FontAwesomeIcon icon={faCircleMinus} onClick={() => handleQuantityChange(-1)} />
-                        </span>
-                        <span className={cx('action-icon')}>
-                            <FontAwesomeIcon icon={faTrash} onClick={() => handleQuantityChange(-1)} />
-                        </span>
-                    </div>
+                    {allowEdit && (
+                        <div className={cx('item-action')}>
+                            <span className={cx('action-icon')}>
+                                <FontAwesomeIcon icon={faCirclePlus} onClick={() => handleQuantityChange(1)} />
+                            </span>
+                            <span className={cx('action-icon')}>
+                                <FontAwesomeIcon icon={faCircleMinus} onClick={() => handleQuantityChange(-1)} />
+                            </span>
+                            <span className={cx('action-icon')}>
+                                <FontAwesomeIcon icon={faTrash} onClick={() => handleQuantityChange(-1)} />
+                            </span>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="text-middle col c-2">{item.quantity || 1}</div>
-            <div className="text-end col c-5">{toVND(120000)}</div>
+            <div className={`text-end col c-${allowEdit ? 5 : 3}`}>{toVND(120000)}</div>
         </div>
     );
 }

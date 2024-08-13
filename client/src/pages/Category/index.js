@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 function Category() {
     const location = useLocation();
     const navigate = useNavigate();
+    const query = useQuery();
 
     const [filters, setFilters] = useState({
         type: '',
@@ -26,9 +27,9 @@ function Category() {
         limit: 9,
     });
 
-    const query = useQuery();
     //Sync filters to URL
     const handleFilterChange = (value, name) => {
+        console.log(name);
         //Delete filters if already present
         if (query.get(name) === value) {
             query.delete(name);
@@ -53,6 +54,7 @@ function Category() {
     //Update filters based on URL query parameters
     useEffect(() => {
         setFilters((prev) => ({
+            ...prev,
             type: query.get('type') || '',
             flavor: query.get('flavor') || '',
             size: query.get('size') || '',
@@ -61,13 +63,12 @@ function Category() {
                 min: query.get('min'),
                 max: query.get('max'),
             },
-            ...prev,
         }));
     }, [location.search]);
 
     useEffect(() => {
         //Fetch product information
-        console.log(filters.page);
+        console.log(filters);
     }, [filters]);
 
     return (
