@@ -11,19 +11,22 @@ import images from 'assets/images';
 const cx = classNames.bind(styles);
 
 ReviewSection.propTypes = {
+    product: PropTypes.object.isRequired,
     reviews: PropTypes.array.isRequired,
     reviewsCount: PropTypes.number.isRequired,
     onReviewPageChange: PropTypes.func.isRequired,
 };
 
 function ReviewSection(props) {
-    const { reviews, reviewsCount, onReviewPageChange } = props;
+    const { product, reviews, reviewsCount, onReviewPageChange } = props;
 
     const [tab, setTab] = useState('description');
 
     const handleReviewPageChange = (e, value) => {
         onReviewPageChange(value);
     };
+
+    console.log(product);
 
     return (
         <div className={cx('wrapper')}>
@@ -54,9 +57,9 @@ function ReviewSection(props) {
                     </p>
                     <div className={`grid ${cx('images-content')}`}>
                         <div className="row">
-                            <img className="col c-4" src={images.homePanels[0]} />
-                            <img className="col c-4" src={images.homePanels[0]} />
-                            <img className="col c-4" src={images.homePanels[0]} />
+                            {product.image_sources.map((image, index) => (
+                                <img key={index} className="col c-4" src={image} />
+                            ))}
                         </div>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ const routes = [
         layout: layouts.DefaultLayout,
     },
     {
-        path: '/product/:id',
+        path: '/product/:_id',
         element: pages.ProductPage,
         layout: layouts.DefaultLayout,
     },

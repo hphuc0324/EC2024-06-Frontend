@@ -34,15 +34,24 @@ function ProductDetails(props) {
 
     return (
         <div className={cx('wrapper')}>
-            <ProductSection
-                product={{}}
-                quantity={productConfig.quantity}
-                size={productConfig.size}
-                onQuantityChange={handleQuantityChange}
-                onSizeChange={handleSizeChange}
-            />
+            {product && (
+                <ProductSection
+                    product={product}
+                    quantity={productConfig.quantity}
+                    size={productConfig.size}
+                    onQuantityChange={handleQuantityChange}
+                    onSizeChange={handleSizeChange}
+                />
+            )}
 
-            <ReviewSection reviews={reviews} reviewsCount={reviewsCount} onReviewPageChange={onReviewPageChange} />
+            {product && (
+                <ReviewSection
+                    product={product}
+                    reviews={reviews}
+                    reviewsCount={reviewsCount}
+                    onReviewPageChange={onReviewPageChange}
+                />
+            )}
 
             <span className={cx('related-title')}>RELATED PRODUCTS</span>
         </div>

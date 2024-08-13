@@ -10,12 +10,16 @@ import useQuery from 'hooks/useQuery';
 import ProductList from 'features/Product/ProductList';
 import FilterBar from './FilterBar';
 
+import productApi from 'api/productApi';
+
 const cx = classNames.bind(styles);
 
 function Category() {
     const location = useLocation();
     const navigate = useNavigate();
     const query = useQuery();
+
+    const [products, setProducts] = useState([]);
 
     const [filters, setFilters] = useState({
         type: '',
@@ -67,15 +71,24 @@ function Category() {
     }, [location.search]);
 
     useEffect(() => {
-        //Fetch product information
-        console.log(filters);
+        const handleFetchProducts = async () => {
+            try {
+                const res = await productApi.getAll(filters);
+                console.log(res.data.metadata);
+                setProducts(res.data.metadata);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        handleFetchProducts();
     }, [filters]);
 
     return (
         <div className={cx('wrapper')}>
             <FilterBar filters={filters} onFilterChange={handleFilterChange} />
             <div className={cx('products')}>
-                <ProductList itemPerRow={3} products={[1, 2, 3, 4, 5, 6, 7, 8]} />
+                <ProductList itemPerRow={3} products={products} />
                 <Pagination
                     sx={{
                         '& .MuiButtonBase-root.MuiPaginationItem-root': {

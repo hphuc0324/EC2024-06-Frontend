@@ -34,9 +34,9 @@ function ProductSection(props) {
 
     return (
         <div className={cx('product-section')}>
-            <img className={cx('product-cover')} src={images.homePanels[0]} />
+            <img className={cx('product-cover')} src={product.product_thumb} />
             <div className={cx('product-info')}>
-                <span className={cx('product-name')}>PINKY CAKE</span>
+                <span className={cx('product-name')}>{product.product_name}</span>
                 <div className={cx('product-review', 'flex-item')}>
                     <div className={cx('left-col')}>
                         <Rating value={4.5} readOnly size="large" precision={0.1} />
@@ -48,7 +48,7 @@ function ProductSection(props) {
 
                 <div className={cx('product-price', 'flex-item')}>
                     <div className={cx('left-col')}>
-                        <span className={cx('product-new-price', 'col-title')}>{toVND(200000)}</span>
+                        <span className={cx('product-new-price', 'col-title')}>{toVND(200)}</span>
                     </div>
                     <div className={cx('right-col')}>
                         <span className={cx('product-old-price')}>{toVND(250000)}</span>
@@ -62,13 +62,7 @@ function ProductSection(props) {
                     <div className={cx('right-col')}>
                         <div className={cx('right-col')}>
                             <div className={cx('product-content')}>
-                                <span className={cx('product-content-line')}>
-                                    {' '}
-                                    Type:
-                                    300grsafdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdfdasdddddddddddddddddddsaddddddddddd
-                                </span>
-                                <span className={cx('product-content-line')}>{toVND(250000)}</span>
-                                <span className={cx('product-content-line')}>{toVND(250000)}</span>
+                                <span className={cx('product-content-line')}>{product.product_description}</span>
                             </div>
                         </div>
                     </div>
