@@ -23,6 +23,10 @@ const cx = classNames.bind(styles);
 PaymentForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     products: PropTypes.array.isRequired,
+
+    districts: PropTypes.array.isRequired,
+    wards: PropTypes.array.isRequired,
+    onDistrictChange: PropTypes.func.isRequired,
 };
 
 function PaymentForm(props) {
@@ -30,7 +34,7 @@ function PaymentForm(props) {
 
     const user = useSelector((state) => state.user);
 
-    const { onSubmit, products } = props;
+    const { onSubmit, products, onDistrictChange, districts, wards } = props;
 
     const schema = yup.object().shape({
         name: yup.string().required('Name is required'),
@@ -67,6 +71,12 @@ function PaymentForm(props) {
 
     const handleSubmit = async (values) => {
         await onSubmit(values);
+    };
+
+    const hanldeDistrictChange = async (e) => {
+        const district = e.target.value;
+
+        onDistrictChange(district);
     };
 
     const hanldeShowToast = () => {
@@ -109,16 +119,17 @@ function PaymentForm(props) {
                         <SelectField
                             name="address.district"
                             placeholder="District"
+                            choices={districts}
+                            onChange={hanldeDistrictChange}
                             form={form}
                             classNames={`col c-3 ${cx('form-input')}`}
-                            choices={[1, 2, 3, 4]}
                         />
                         <SelectField
                             name="address.ward"
                             placeholder="Ward"
+                            choices={wards}
                             form={form}
                             classNames={`col c-3 ${cx('form-input')}`}
-                            choices={[1, 2, 3, 4]}
                         />
                     </div>
 
@@ -131,8 +142,6 @@ function PaymentForm(props) {
                         <Button buttonType="submit" classNames={cx('submit-btn')}>
                             Continue to payment method
                         </Button>
-
-                        <button onClick={hanldeShowToast}>show toast</button>
                     </div>
                 </form>
 

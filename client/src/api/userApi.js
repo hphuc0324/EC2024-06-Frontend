@@ -1,24 +1,22 @@
-import axios from 'axios';
-import axiosClient from './axiosClient';
-
+import { backendAxiosClient } from './axiosClient';
 const userApi = {
     getAll: (params) => {
         const url = '/user';
-        return axios.get(url, { params: params });
+        return backendAxiosClient.get(url, { params: params });
     },
 
     get: (id) => {
         const url = `/user/${id}`;
-        return axios.get(url);
+        return backendAxiosClient.get(url);
     },
 
     add: (data) => {
         const url = '/user';
-        return axios.post(url, data);
+        return backendAxiosClient.post(url, data);
     },
 
     update: (data) => {
         const url = `/user/${data.id}`;
-        return axios.patch(url, data);
+        return backendAxiosClient.patch(url, data);
     },
 };

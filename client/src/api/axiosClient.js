@@ -1,9 +1,11 @@
 import axios from 'axios';
-import 'dotenv/config';
 
-const axiosClient = axios.create({
-    baseURL: process.env.API_BASE_URL,
+export const backendAxiosClient = axios.create({
+    baseURL: process.env.REACT_APP_API_BASE_URL,
     withCredentials: true,
 });
 
-export default axiosClient;
+export const cityAxiosClient = axios.create({
+    baseURL: process.env.REACT_APP_CITY_BASE_URL,
+    withCredentials: false,
+});
