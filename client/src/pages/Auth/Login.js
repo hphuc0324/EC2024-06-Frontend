@@ -5,12 +5,21 @@ import styles from './Auth.module.scss';
 
 import LoginForm from 'features/Auth/Login/LoginForm';
 import images from 'assets/images';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from 'features/Auth/userSlice';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const hanldeSubit = (values) => {
-        console.log('submit');
+    const dispatch = useDispatch();
+    const error = useSelector((state) => state.user.error);
+
+    const hanldeSubit = async (values) => {
+        try {
+            await dispatch(login(values));
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
@@ -19,6 +28,7 @@ function Login() {
             <div className={cx('container', 'login-container')}>
                 <h1 className={cx('header')}>login</h1>
                 <div className={cx('form')}>
+                    {error && <span className={cx('error')}>{error}</span>}
                     <LoginForm onSubmit={hanldeSubit} />
 
                     <div className={cx('others')}>

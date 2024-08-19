@@ -30,7 +30,7 @@ const actions = [
 ];
 
 function OtherActions() {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.user.current);
 
     return (
         <div className={cx('wrapper')}>
