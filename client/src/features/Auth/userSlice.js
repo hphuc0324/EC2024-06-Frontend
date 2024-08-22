@@ -36,12 +36,18 @@ export const signUp = createAsyncThunk('auth/signUp', async (payload, { rejectWi
     }
 });
 
-export const logout = createAsyncThunk('auth/logout', async ({ rejectWithValue }) => {
+export const logout = createAsyncThunk('auth/logout', async (payload, { rejectWithValue }) => {
     try {
         const res = await authApi.logout();
 
+        localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        console.log('LocalStorage items removed', res);
+
         return null;
     } catch (error) {
+        console.log('into');
         return rejectWithValue('Something went wrong. Please try again.');
     }
 });
@@ -49,7 +55,7 @@ export const logout = createAsyncThunk('auth/logout', async ({ rejectWithValue }
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        current: null,
+        current: JSON.parse(localStorage.getItem('user')) || null,
         settings: {},
         error: null,
     },

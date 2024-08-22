@@ -4,33 +4,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './OtherActions.module.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Menu from 'components/Popper/Menu';
 import { GUEST_MENU } from 'constants/general';
+import { logout } from 'features/Auth/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const cx = classNames.bind(styles);
 
-const actions = [
-    {
-        label: 'Profile',
-
-        to: '/profile',
-    },
-    {
-        label: 'Logout',
-
-        to: '/profile',
-    },
-    {
-        label: 'Login',
-
-        to: '/profile',
-    },
-];
-
 function OtherActions() {
     const user = useSelector((state) => state.user.current);
+
+    const dispatch = useDispatch();
+
+    const actions = [
+        {
+            label: 'Profile',
+
+            to: '/profile',
+        },
+        {
+            label: 'Logout',
+
+            onClick: async () => {
+                try {
+                    const action = await dispatch(logout());
+
+                    const resultAction = unwrapResult(action);
+                } catch (err) {
+                    console.log(err);
+                }
+            },
+        },
+    ];
 
     return (
         <div className={cx('wrapper')}>

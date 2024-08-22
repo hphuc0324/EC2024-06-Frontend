@@ -42,7 +42,8 @@ backendAxiosClient.interceptors.response.use(
 
                 return backendAxiosClient(originalRequest);
             } catch (refreshError) {}
-        } else {
         }
+
+        return Promise.reject(error);
     },
 );

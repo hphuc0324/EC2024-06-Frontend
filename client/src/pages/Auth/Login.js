@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './Auth.module.scss';
 
@@ -7,19 +7,23 @@ import LoginForm from 'features/Auth/Login/LoginForm';
 import images from 'assets/images';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'features/Auth/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const cx = classNames.bind(styles);
 
 function Login() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const error = useSelector((state) => state.user.error);
 
     const hanldeSubit = async (values) => {
         try {
-            await dispatch(login(values));
-        } catch (err) {
-            console.log(err);
-        }
+            const action = await dispatch(login(values));
+
+            const resultAction = unwrapResult(action);
+
+            navigate('/');
+        } catch (err) {}
     };
 
     return (
