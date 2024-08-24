@@ -3,16 +3,23 @@ import axios from 'axios';
 export const backendAxiosClient = axios.create({
     baseURL: process.env.REACT_APP_API_BASE_URL,
     withCredentials: true,
-    headers: {
-        'x-authorization': localStorage.getItem('access_token') || null,
-        'x-client-id': JSON.parse(localStorage.getItem('user'))?._id || null,
-    },
 });
 
 export const cityAxiosClient = axios.create({
     baseURL: process.env.REACT_APP_CITY_BASE_URL,
     withCredentials: false,
 });
+
+backendAxiosClient.interceptors.request.use(
+    (config) => {
+        config.headers['x-authorization'] = localStorage.getItem('access_token') || null;
+        config.headers['x-client-id'] = JSON.parse(localStorage.getItem('user'))?._id || null;
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    },
+);
 
 backendAxiosClient.interceptors.response.use(
     (response) => response,

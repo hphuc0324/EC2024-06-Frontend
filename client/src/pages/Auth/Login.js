@@ -16,12 +16,11 @@ function Login() {
     const navigate = useNavigate();
     const error = useSelector((state) => state.user.error);
 
-    const hanldeSubit = async (values) => {
+    const handleSubmit = async (values) => {
         try {
             const action = await dispatch(login(values));
 
             const resultAction = unwrapResult(action);
-
             navigate('/');
         } catch (err) {}
     };
@@ -33,7 +32,7 @@ function Login() {
                 <h1 className={cx('header')}>login</h1>
                 <div className={cx('form')}>
                     {error && <span className={cx('error')}>{error}</span>}
-                    <LoginForm onSubmit={hanldeSubit} />
+                    <LoginForm onSubmit={handleSubmit} />
 
                     <div className={cx('others')}>
                         <span>Don't have an account?</span>

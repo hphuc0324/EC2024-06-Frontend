@@ -26,7 +26,15 @@ export const signUp = createAsyncThunk('auth/signUp', async (payload, { rejectWi
     try {
         const res = await authApi.signUp(payload);
 
-        return null;
+        const user = res.data.metadata.user;
+        const tokens = res.data.metadata.tokens;
+
+        localStorage.setItem('user', JSON.stringify(user));
+        //Set token to localStorage
+        localStorage.setItem('access_token', tokens.accessToken);
+        localStorage.setItem('refresh_token', tokens.refreshToken);
+
+        return user;
     } catch (error) {
         if (error.response && error.response.status === 403) {
             return rejectWithValue('Email already exists');
@@ -43,11 +51,9 @@ export const logout = createAsyncThunk('auth/logout', async (payload, { rejectWi
         localStorage.removeItem('user');
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        console.log('LocalStorage items removed', res);
 
         return null;
     } catch (error) {
-        console.log('into');
         return rejectWithValue('Something went wrong. Please try again.');
     }
 });
