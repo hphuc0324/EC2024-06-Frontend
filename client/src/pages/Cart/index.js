@@ -5,11 +5,26 @@ import CartList from 'features/Cart/CartList';
 import styles from './Cart.module.scss';
 import { toVND } from 'utils/currencyConverter';
 import Button from 'components/Button';
+import { useEffect, useState } from 'react';
+import cartApi from 'api/cartApi';
 
 const cx = classNames.bind(styles);
 
 function Cart() {
     const cartItems = [1, 2];
+    const [cart, setCart] = useState();
+
+    useEffect(() => {
+        const handleFetchCart = async () => {
+            try {
+                const res = await cartApi.getCart();
+
+                console.log(res);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
