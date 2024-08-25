@@ -20,3 +20,5 @@ const userApi = {
         return backendAxiosClient.patch(url, data);
     },
 };
+
+export default userApi;

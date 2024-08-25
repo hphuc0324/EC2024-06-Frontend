@@ -20,20 +20,20 @@ function Product(props) {
     const { product, layout = 'vertical' } = props;
 
     return (
-        <Link className={cx('wrapper', { horizontal: layout !== 'vertical' })}>
+        <Link to={`/product/${product._id}`} className={cx('wrapper', { horizontal: layout !== 'vertical' })}>
             {product.discount !== 0 && <div className={cx('product-discount-tag')}>{'15%'}</div>}
-            <img src={images.contactPanel} className={cx('product-cover')} />
+            <img src={product.product_thumb} className={cx('product-cover')} />
             <div className={cx('product-info', { horizontal: layout !== 'vertical' })}>
                 <div className={cx('product-detail')}>
-                    <span className={cx('product-name')}>Daisy Love Cake</span>
+                    <span className={cx('product-name')}>{product.product_name}</span>
                     {layout !== 'vertical' && (
-                        <span className={cx('product-description')}>
-                            Daisy Love Cake" features moist vanilla sponge infused with fresh daisies.{' '}
-                        </span>
+                        <span className={cx('product-description')}>{product.product_description}</span>
                     )}
                     <div className={cx('product-prices')}>
-                        <span className={cx('product-new-price')}>{toVND(decreaseByPercent(300000, 10))}</span>
-                        {product.discount !== 0 && <span className={cx('product-old-price')}>({toVND(300000)})</span>}
+                        <span className={cx('product-new-price')}>{toVND(product.product_sell_price)}</span>
+                        {product.product_list_price && (
+                            <span className={cx('product-old-price')}>({toVND(product.product_list_price)})</span>
+                        )}
                     </div>
                 </div>
                 <span>

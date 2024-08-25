@@ -43,13 +43,14 @@ function RegisterForm(props) {
             phoneNumber: '',
             password: '',
             confirmPassword: '',
-            gender: '',
+            gender: 'male',
         },
 
         resolver: yupResolver(schema),
     });
 
     const handleSubmit = async (values) => {
+        console.log(values);
         const { onSubmit } = props;
 
         await onSubmit(values);
@@ -84,7 +85,7 @@ function RegisterForm(props) {
                 />
             </div>
 
-            <Button buttonType="submit" classNames={cx('submit-btn')} fullLength>
+            <Button buttonType="submit" fullLength classNames={cx('submit-btn')}>
                 Register
             </Button>
         </form>
