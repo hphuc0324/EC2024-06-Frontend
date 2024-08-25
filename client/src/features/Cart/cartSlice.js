@@ -1,7 +1,7 @@
-const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit');
-const { default: cartApi } = require('api/cartApi');
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import cartApi from 'api/cartApi';
 
-const getCart = createAsyncThunk('cart/getCart', async (payload, { rejectWithValue }) => {
+export const getCart = createAsyncThunk('cart/getCart', async (payload, { rejectWithValue }) => {
     try {
         const res = await cartApi.getCart();
 
@@ -9,10 +9,58 @@ const getCart = createAsyncThunk('cart/getCart', async (payload, { rejectWithVal
 
         return res.data.metadata;
     } catch (error) {
-        if (error.response && error.response.status === 404) {
-            rejectWithValue('Cart not found');
+        if (error.response) {
+            return rejectWithValue(error.response.data.message);
         } else {
-            rejectWithValue('Something went wrong! Please try again later.');
+            return rejectWithValue('Something went wrong! Please try again later.');
+        }
+    }
+});
+
+export const addToCart = createAsyncThunk('cart/addToCart', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await cartApi.addToCart(payload);
+
+        return res.data.metadata;
+    } catch (error) {
+        if (error.response) {
+            return rejectWithValue(error.response.data.message);
+        }
+    }
+});
+
+export const increaseQuantity = createAsyncThunk('cart/increaseQuantity', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await cartApi.increaseQuantity(payload);
+
+        return res.data;
+    } catch (error) {
+        if (error.response) {
+            return rejectWithValue(error.response.data.message);
+        }
+    }
+});
+
+export const decreaseQuantity = createAsyncThunk('cart/decreaseQuantity', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await cartApi.decreaseQuantity(payload);
+
+        return res.data.metadata;
+    } catch (error) {
+        if (error.response) {
+            return rejectWithValue(error.response.data.message);
+        }
+    }
+});
+
+export const removeProduct = createAsyncThunk('cart/removeProduct', async (payload, { rejectWithValue }) => {
+    try {
+        const res = await cartApi.removeProduct(payload);
+
+        return res.data.metadata;
+    } catch (error) {
+        if (error.response) {
+            return rejectWithValue(error.response.data.message);
         }
     }
 });
@@ -25,8 +73,31 @@ const cartSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getCart.fulfilled, (state, action) => {
-            state.items = action.payload.items;
+            state.items = action.payload.cart_products;
             state.totalPrice = action.payload.totalPrice;
+        });
+        builder.addCase(getCart.rejected, (state, action) => {
+            state.items = [];
+            state.totalPrice = 0;
+        });
+
+        builder.addCase(addToCart.fulfilled, (state, action) => {
+            state.items = action.payload.cart_products;
+        });
+
+        builder.addCase(increaseQuantity.fulfilled, (state, action) => {
+            state.items = action.payload.cart_products;
+        });
+
+        builder.addCase(decreaseQuantity.fulfilled, (state, action) => {
+            state.items = action.payload.cart_products;
+        });
+
+        builder.addCase(removeProduct.fulfilled, (state, action) => {
+            state.items = action.payload.cart_products;
         });
     },
 });
+
+const { reducer } = cartSlice;
+export default reducer;
