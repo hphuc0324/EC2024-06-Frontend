@@ -7,6 +7,10 @@ import images from 'assets/images';
 import { Rating } from '@mui/material';
 import { toVND } from 'utils/currencyConverter';
 import Button from 'components/Button';
+import { useDispatch } from 'react-redux';
+import { addToCart } from 'features/Cart/cartSlice';
+import { showToast } from 'components/ToastMessage';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const cx = classNames.bind(styles);
 
@@ -17,12 +21,12 @@ ProductSection.propTypes = {
 
     onSizeChange: PropTypes.func.isRequired,
     onQuantityChange: PropTypes.func.isRequired,
-    onAddToCart: PropTypes.func,
     onBuy: PropTypes.func,
 };
 
 function ProductSection(props) {
     const { product, quantity, size, onSizeChange, onQuantityChange, onAddToCart, onBuy } = props;
+    const dispatch = useDispatch();
 
     const handleSizeChange = (value) => {
         onSizeChange(value);
@@ -30,6 +34,18 @@ function ProductSection(props) {
 
     const handleQuantityChange = (value) => {
         onQuantityChange(value);
+    };
+
+    const handleAddToCart = async () => {
+        try {
+            const action = await dispatch(addToCart({ productId: product._id, quantity: quantity }));
+
+            const resultAction = unwrapResult(action);
+
+            showToast('Added to cart', `${product.product_name}, quantity: ${quantity}`);
+        } catch (error) {
+            showToast('Error', error);
+        }
     };
 
     return (
@@ -97,7 +113,7 @@ function ProductSection(props) {
                         <Button
                             rounded
                             classNames={cx('quantity-btn')}
-                            disabled={quantity <= 0}
+                            disabled={quantity <= 1}
                             callback={() => handleQuantityChange(-1)}
                         >
                             -
@@ -110,7 +126,7 @@ function ProductSection(props) {
                 </div>
 
                 <div className={cx('flex-item')}>
-                    <Button fullWidth classNames={cx('choice-btn', 'buy-btn')}>
+                    <Button fullWidth classNames={cx('choice-btn', 'buy-btn')} callback={handleAddToCart}>
                         ADD TO CART
                     </Button>
                     <Button classNames={cx('choice-btn', 'active', 'buy-btn')}>BUY NOW</Button>

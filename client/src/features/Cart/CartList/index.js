@@ -18,6 +18,8 @@ function CartList(props) {
         console.log(value);
     };
 
+    console.log('cart items', cartItems);
+
     return (
         <div className={cx('wrapper')}>
             <div className={`grid ${cx('cart-item-list')}`}>
@@ -27,7 +29,7 @@ function CartList(props) {
                     <div className={`text-end col c-${allowEdit ? 5 : 3}`}>Order value</div>
                 </div>
                 {cartItems.map((item, index) => (
-                    <CartItem key={index} item={{}} onQuantityChange={hanldeChange} allowEdit={allowEdit} />
+                    <CartItem key={index} item={item} onQuantityChange={hanldeChange} allowEdit={allowEdit} />
                 ))}
             </div>
         </div>

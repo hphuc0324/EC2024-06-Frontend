@@ -9,6 +9,10 @@ import { toVND } from 'utils/currencyConverter';
 import decreaseByPercent from 'utils/decreaseByPercent';
 
 import styles from './Product.module.scss';
+import { useDispatch } from 'react-redux';
+import { addToCart } from 'features/Cart/cartSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { showToast } from 'components/ToastMessage';
 const cx = classNames.bind(styles);
 
 Product.propTypes = {
@@ -18,10 +22,30 @@ Product.propTypes = {
 
 function Product(props) {
     const { product, layout = 'vertical' } = props;
+    const dispatch = useDispatch();
+
+    const handleAddToCart = async () => {
+        try {
+            const action = await dispatch(addToCart({ productId: product._id, quantity: 1 }));
+
+            const resultAction = unwrapResult(action);
+            showToast('Success', 'Product added to cart successfully!');
+        } catch (error) {
+            showToast('Error', error);
+        }
+    };
 
     return (
-        <Link to={`/product/${product._id}`} className={cx('wrapper', { horizontal: layout !== 'vertical' })}>
-            {product.discount !== 0 && <div className={cx('product-discount-tag')}>{'15%'}</div>}
+        <Link
+            to={`/product/${product._id}`}
+            className={cx('wrapper', { horizontal: layout !== 'vertical' })}
+            onClick={(e) => {
+                if (e.target.closest('.span-button')) {
+                    e.preventDefault();
+                }
+            }}
+        >
+            {product.product_list_price !== undefined && <div className={cx('product-discount-tag')}>{'15%'}</div>}
             <img src={product.product_thumb} className={cx('product-cover')} />
             <div className={cx('product-info', { horizontal: layout !== 'vertical' })}>
                 <div className={cx('product-detail')}>
@@ -36,7 +60,7 @@ function Product(props) {
                         )}
                     </div>
                 </div>
-                <span>
+                <span className="span-button" onClick={handleAddToCart}>
                     <FontAwesomeIcon icon={faCartShopping} />
                 </span>
             </div>

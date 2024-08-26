@@ -6,24 +6,27 @@ import styles from './Cart.module.scss';
 import { toVND } from 'utils/currencyConverter';
 import Button from 'components/Button';
 import { useEffect, useState } from 'react';
-import cartApi from 'api/cartApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCart } from 'features/Cart/cartSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const cx = classNames.bind(styles);
 
 function Cart() {
-    const cartItems = [1, 2];
-    const [cart, setCart] = useState();
+    const cartItems = useSelector((state) => state.cart.items);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const handleFetchCart = async () => {
             try {
-                const res = await cartApi.getCart();
-
-                console.log(res);
+                const action = await dispatch(getCart());
+                const resultAction = unwrapResult(action);
             } catch (error) {
                 console.log(error);
             }
         };
+
+        handleFetchCart();
     }, []);
 
     return (

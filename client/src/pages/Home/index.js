@@ -2,10 +2,30 @@ import classNames from 'classnames/bind';
 
 import styles from './Home.module.scss';
 import images from 'assets/images';
+import { useEffect, useState } from 'react';
+import productApi from 'api/productApi';
+import { showToast } from 'components/ToastMessage';
+import ProductList from 'features/Product/ProductList';
 
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const handleFetchProduct = async () => {
+            try {
+                const res = await productApi.getAll({ page: 1, limit: 6 });
+
+                setProducts(res.data.metadata);
+            } catch (error) {
+                showToast('Error', 'Some errors happened while fetching product! Please try again later');
+            }
+        };
+
+        handleFetchProduct();
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <img src={images.homeCover} className={cx('image')} />
@@ -29,6 +49,10 @@ function Home() {
                         <img className={cx('home-panel')} src={images.homePanels[0]} />
                     </div>
                 </div>
+
+                <span className={cx('full-width', 'label')}>Our latest products</span>
+
+                <ProductList products={products} itemPerRow={3} />
             </div>
         </div>
     );
