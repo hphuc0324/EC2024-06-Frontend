@@ -12,6 +12,14 @@ const productApi = {
         const url = `/product/${id}`;
         return backendAxiosClient.get(url);
     },
+
+    search: (name) => {
+        const url = '/product/search';
+
+        return backendAxiosClient.get(url, {
+            params: { name },
+        });
+    },
 };
 
 export default productApi;

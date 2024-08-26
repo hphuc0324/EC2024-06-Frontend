@@ -4,9 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-import images from 'assets/images';
 import { toVND } from 'utils/currencyConverter';
-import decreaseByPercent from 'utils/decreaseByPercent';
 
 import styles from './Product.module.scss';
 import { useDispatch } from 'react-redux';

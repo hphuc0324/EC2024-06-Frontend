@@ -22,10 +22,7 @@ function Category() {
     const [products, setProducts] = useState([]);
 
     const [filters, setFilters] = useState({
-        type: '',
-        flavor: '',
-        size: '',
-        shape: '',
+        category: '',
         price: {},
         page: 1,
         limit: 9,
@@ -33,7 +30,6 @@ function Category() {
 
     //Sync filters to URL
     const handleFilterChange = (value, name) => {
-        console.log(name);
         //Delete filters if already present
         if (query.get(name) === value) {
             query.delete(name);
@@ -59,10 +55,7 @@ function Category() {
     useEffect(() => {
         setFilters((prev) => ({
             ...prev,
-            type: query.get('type') || '',
-            flavor: query.get('flavor') || '',
-            size: query.get('size') || '',
-            shape: query.get('shape') || '',
+            category: query.get('category') || undefined,
             price: {
                 min: query.get('min'),
                 max: query.get('max'),
@@ -73,8 +66,10 @@ function Category() {
     useEffect(() => {
         const handleFetchProducts = async () => {
             try {
-                const res = await productApi.getAll(filters);
-                console.log(res.data.metadata);
+                const cleaned = { product_category: filters.category };
+                if (!cleaned.product_category) delete cleaned.product_category;
+
+                const res = await productApi.getAll(cleaned);
                 setProducts(res.data.metadata);
             } catch (err) {
                 console.log(err);

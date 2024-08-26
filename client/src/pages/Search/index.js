@@ -4,6 +4,7 @@ import useQuery from 'hooks/useQuery';
 import { useEffect, useState } from 'react';
 import ProductList from 'features/Product/ProductList';
 import productApi from 'api/productApi';
+import { showToast } from 'components/ToastMessage';
 
 const cx = classNames.bind(styles);
 
@@ -14,11 +15,14 @@ function Search() {
 
     useEffect(() => {
         const handleFetchProducts = async () => {
-            const res = await productApi.getAll();
+            try {
+                const res = await productApi.search(name);
 
-            setProducts(res.data.metadata);
+                setProducts(res.data.metadata);
+            } catch (error) {
+                showToast(error);
+            }
         };
-        console.log('into');
 
         handleFetchProducts();
     }, [name]);
