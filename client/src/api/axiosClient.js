@@ -14,6 +14,7 @@ backendAxiosClient.interceptors.request.use(
     (config) => {
         config.headers['x-authorization'] = localStorage.getItem('access_token') || null;
         config.headers['x-client-id'] = JSON.parse(localStorage.getItem('user'))?._id || null;
+
         return config;
     },
     (error) => {

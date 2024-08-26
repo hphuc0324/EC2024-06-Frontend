@@ -13,3 +13,5 @@ const categoryApi = {
         return backendAxiosClient.get(url);
     },
 };
+
+export default categoryApi;

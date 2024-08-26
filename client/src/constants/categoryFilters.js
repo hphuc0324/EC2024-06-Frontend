@@ -127,10 +127,4 @@ export const CAKE_PRICE_FILTER = {
     radioButton: true,
 };
 
-export const FILTER_CONSTANTS = [
-    CAKE_TYPE_FILTER,
-    CAKE_FLAVOR_FILTER,
-    CAKE_SIZE_FILTER,
-    CAKE_SHAPE_FILTER,
-    CAKE_PRICE_FILTER,
-];
+export const FILTER_CONSTANTS = [CAKE_PRICE_FILTER];
