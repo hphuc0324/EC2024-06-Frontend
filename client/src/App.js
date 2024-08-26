@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import React from 'react';
 
 import routes from 'routes';
+
 import { Fragment } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import adminRoutes from 'routes/admin';
 
 function App() {
     const user = useSelector((state) => state.user);
@@ -29,6 +31,11 @@ function App() {
                             }
                         />
                     );
+                })}
+
+                {adminRoutes.map((adminRoute, index) => {
+                    const Page = adminRoute.element;
+                    return <Route key={index} path={adminRoute.path} element={<Page />}></Route>;
                 })}
 
                 <Route path="*" element={<h1>404</h1>} />

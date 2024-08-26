@@ -8,3 +8,6 @@ export { default as CategoryPage } from './Category';
 export { default as ProductPage } from './Product';
 export { default as CartPage } from './Cart';
 export { default as PaymentPage } from './Payment';
+
+// Admin
+export { default as AdminPage } from './Admin';
