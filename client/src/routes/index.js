@@ -1,5 +1,6 @@
 import * as layouts from 'layouts';
 import * as pages from 'pages';
+import { element } from 'prop-types';
 
 const routes = [
     {
@@ -49,6 +50,24 @@ const routes = [
         path: '/payment',
         element: pages.PaymentPage,
         layout: layouts.DefaultLayout,
+    },
+    {
+        path: '/profile',
+        element: pages.ProfilePage,
+        layout: layouts.DefaultLayout,
+        authen: true,
+    },
+    {
+        path: '/profile/info',
+        element: pages.ProfilePage,
+        layout: layouts.DefaultLayout,
+        authen: true,
+    },
+    {
+        path: '/profile/orders',
+        element: pages.ProfilePage,
+        layout: layouts.DefaultLayout,
+        authen: true,
     },
 ];
 
