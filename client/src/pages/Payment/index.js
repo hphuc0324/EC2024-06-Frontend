@@ -1,4 +1,5 @@
 import { districtApi, wardApi } from 'api/cityApi';
+import Map from 'components/Map';
 import PaymentForm from 'features/Payment/PaymentForm';
 import { useEffect, useState } from 'react';
 

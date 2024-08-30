@@ -29,6 +29,7 @@ function NavBar() {
 
                 setCategories(categoriesMapped);
             } catch (error) {
+                console.log(error);
                 showToast('Error', 'Error while fetching categories. Please try again later');
             }
         };
