@@ -16,8 +16,14 @@ const userApi = {
     },
 
     update: (data) => {
-        const url = `/user/${data.id}`;
+        const url = `/user`;
         return backendAxiosClient.patch(url, data);
+    },
+
+    getProfile: () => {
+        const url = '/user/me';
+
+        return backendAxiosClient.get(url);
     },
 };
 

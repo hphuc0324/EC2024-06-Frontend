@@ -59,7 +59,7 @@ const routes = [
     },
     {
         path: '/profile/info',
-        element: pages.ProfilePage,
+        element: pages.UserProfilePage,
         layout: layouts.DefaultLayout,
         authen: true,
     },

@@ -11,6 +11,7 @@ export { default as ProductPage } from './Product';
 export { default as CartPage } from './Cart';
 export { default as PaymentPage } from './Payment';
 export { default as ProfilePage } from './Profile';
+export { default as UserProfilePage } from './Profile/UserInfo';
 
 // Admin
 export { default as AdminPage } from './Admin';
