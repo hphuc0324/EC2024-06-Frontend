@@ -1,11 +1,14 @@
 import { districtApi, wardApi } from 'api/cityApi';
+import orderApi from 'api/orderApi';
 import Map from 'components/Map';
+import { showToast } from 'components/ToastMessage';
 import PaymentForm from 'features/Payment/PaymentForm';
 import { useEffect, useState } from 'react';
 
 function Payment() {
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+    const [order, setOrder] = useState(null);
 
     useEffect(() => {
         const handleFetchDistricts = async () => {
@@ -21,6 +24,22 @@ function Payment() {
         handleFetchDistricts();
     }, []);
 
+    useEffect(() => {
+        const handleFetchOrder = async () => {
+            try {
+                const res = await orderApi.checkoutOverview();
+
+                setOrder(res.data.metadata);
+            } catch (error) {
+                showToast('Error', 'Error while fetching checkout overview');
+            }
+        };
+
+        handleFetchOrder();
+    }, []);
+
+    console.log(order);
+
     const handleDistrictChange = async (district) => {
         const res = await wardApi.getAll(district);
 
@@ -33,13 +52,18 @@ function Payment() {
     };
 
     return (
-        <PaymentForm
-            onSubmit={(values) => console.log(values)}
-            products={[1, 2]}
-            districts={districts}
-            wards={wards}
-            onDistrictChange={handleDistrictChange}
-        />
+        <>
+            {order ? (
+                <PaymentForm
+                    order={order}
+                    onSubmit={(values) => console.log(values)}
+                    products={[1, 2]}
+                    districts={districts}
+                    wards={wards}
+                    onDistrictChange={handleDistrictChange}
+                />
+            ) : null}
+        </>
     );
 }
 

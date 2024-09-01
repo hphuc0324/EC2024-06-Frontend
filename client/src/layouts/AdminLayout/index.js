@@ -15,6 +15,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import CakeIcon from '@mui/icons-material/Cake';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import LogoutIcon from '@mui/icons-material/Logout';
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
@@ -54,10 +55,11 @@ function AdminLayout({ children }) {
                 icon: <CakeIcon />,
                 link: '/admin/products',
             },
+
             {
-                title: 'Orders',
-                icon: <ReceiptLongIcon />,
-                link: 'rooms',
+                title: 'Categories',
+                icon: <CategoryOutlinedIcon />,
+                link: '/admin/categories',
             },
         ],
         [],

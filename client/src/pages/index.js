@@ -17,3 +17,4 @@ export { default as UserProfilePage } from './Profile/UserInfo';
 export { default as AdminPage } from './Admin';
 export { default as AdminProduct } from './Admin/CakeManagement';
 export { default as AdminUser } from './Admin/UserManagement';
+export { default as AdminCategory } from './Admin/CtaegoryManagement';

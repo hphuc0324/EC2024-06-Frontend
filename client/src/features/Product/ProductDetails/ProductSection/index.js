@@ -44,7 +44,7 @@ function ProductSection(props) {
 
             showToast('Added to cart', `${product.product_name}, quantity: ${quantity}`);
         } catch (error) {
-            showToast('Error', error);
+            showToast('Error', 'Eror while adding product to cart');
         }
     };
 

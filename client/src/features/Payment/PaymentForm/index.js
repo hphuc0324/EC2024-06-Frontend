@@ -17,12 +17,14 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { showToast } from 'components/ToastMessage';
+import { toVND } from 'utils/currencyConverter';
 
 const cx = classNames.bind(styles);
 
 PaymentForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     products: PropTypes.array.isRequired,
+    order: PropTypes.object.isRequired,
 
     districts: PropTypes.array.isRequired,
     wards: PropTypes.array.isRequired,
@@ -34,7 +36,7 @@ function PaymentForm(props) {
 
     const user = useSelector((state) => state.user);
 
-    const { onSubmit, products, onDistrictChange, districts, wards } = props;
+    const { onSubmit, products, onDistrictChange, districts, wards, order } = props;
 
     const schema = yup.object().shape({
         name: yup.string().required('Name is required'),
@@ -77,10 +79,6 @@ function PaymentForm(props) {
         const district = e.target.value;
 
         onDistrictChange(district);
-    };
-
-    const hanldeShowToast = () => {
-        showToast('hi', 'ngu');
     };
 
     return (
@@ -146,7 +144,10 @@ function PaymentForm(props) {
                 </form>
 
                 <div className="col c-6">
-                    <CartList cartItems={products} allowEdit={false} />
+                    <CartList cartItems={order.list_product} allowEdit={false} />
+                    <span className={cx('price')}>
+                        <b>Sub total</b>: {toVND(order.totalPrice)}
+                    </span>
                 </div>
             </div>
         </div>
