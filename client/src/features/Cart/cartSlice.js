@@ -81,9 +81,7 @@ const cartSlice = createSlice({
             state.totalPrice = 0;
         });
 
-        builder.addCase(addToCart.fulfilled, (state, action) => {
-            state.items = action.payload.cart_products;
-        });
+        builder.addCase(addToCart.fulfilled, (state, action) => {});
 
         builder.addCase(increaseQuantity.fulfilled, (state, action) => {
             state.items = action.payload.cart_products;

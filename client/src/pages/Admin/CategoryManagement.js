@@ -4,72 +4,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress, Fab } from '@mui/material';
 import { Check, Save } from '@mui/icons-material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-import userApi from 'api/userApi';
+import DeleteIcon from '@mui/icons-material/Delete';
+import categoryApi from 'api/categoryApi';
 
-const rows = [
-    {
-        _id: '64ed7d5a9f1c2b1a3e4b5678',
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        password: 'hashedpassword123',
-        gender: 'male',
-        phoneNumber: '123-456-7890',
-        address: '123 Main St, Anytown, USA',
-        status: 'active',
-        verify: true,
-        role: 'User',
-    },
-    {
-        _id: '64ed7d5a9f1c2b1a3e4b5679',
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        password: 'hashedpassword456',
-        gender: 'female',
-        phoneNumber: '987-654-3210',
-        address: '456 Elm St, Othertown, USA',
-        status: 'active',
-        verify: false,
-        role: 'Admin',
-    },
-    {
-        _id: '64ed7d5a9f1c2b1a3e4b5680',
-        name: 'Alice Baker',
-        email: 'alice.baker@example.com',
-        password: 'hashedpassword789',
-        gender: 'female',
-        phoneNumber: '555-555-5555',
-        address: '789 Oak St, Bakertown, USA',
-        status: 'active',
-        verify: true,
-        role: 'Baker',
-    },
-    {
-        _id: '64ed7d5a9f1c2b1a3e4b5681',
-        name: 'Bob Brown',
-        email: 'bob.brown@example.com',
-        password: 'hashedpassword321',
-        gender: 'male',
-        phoneNumber: '222-333-4444',
-        address: '321 Maple St, Smalltown, USA',
-        status: 'banned',
-        verify: false,
-        role: 'User',
-    },
-    {
-        _id: '64ed7d5a9f1c2b1a3e4b5682',
-        name: 'Clara Chef',
-        email: 'clara.chef@example.com',
-        password: 'hashedpassword654',
-        gender: 'female',
-        phoneNumber: '111-222-3333',
-        address: '654 Birch St, Bigcity, USA',
-        status: 'active',
-        verify: false,
-        role: 'Baker',
-    },
-];
-
-const UserActions = ({ params, rowId, setRowId }) => {
+const CategoyActions = ({ params, rowId, setRowId }) => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -77,9 +15,31 @@ const UserActions = ({ params, rowId, setRowId }) => {
         if (rowId === params.id && success) setSuccess(false);
     }, [rowId]);
 
-    const handleSubmit = () => {
-        setLoading(true);
-        console.log(rowId);
+    const handleSubmit = async () => {
+        const { name, isActive } = params.row;
+
+        try {
+            setLoading(true);
+
+            const res = await categoryApi.update(rowId, { category_name: name, isActive });
+            console.log(res);
+            showToast('Success', 'Updated category successfully');
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+
+            showToast('Error', 'Error while updating category');
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const res = await categoryApi.delete(rowId);
+
+            showToast('Success', 'Deleted category successfully');
+        } catch (error) {
+            showToast('Error', 'Error while deleting category');
+        }
     };
 
     return (
@@ -132,50 +92,52 @@ const UserActions = ({ params, rowId, setRowId }) => {
                     }}
                 />
             )}
+
+            <Fab
+                sx={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: 'transparent',
+                    cursor: 'pointer',
+                    marginLeft: '10px',
+                }}
+                onClick={handleDelete}
+            >
+                <DeleteIcon
+                    sx={{
+                        color: 'white',
+                    }}
+                />
+            </Fab>
         </Box>
     );
 };
 
-function UserManagement() {
-    const [users, setUsers] = useState([]);
+function CategoryManagement() {
+    const [categories, setCategories] = useState([]);
     const [pageSize, setPageSize] = useState(5);
     const [rowId, setRowId] = useState(null);
 
     const columns = useMemo(
         () => [
             {
-                field: 'name',
-                headerName: 'Username',
+                field: '_id',
+                headerName: 'Category ID',
                 headerClassName: 'header-row',
                 width: 170,
             },
             {
-                field: 'email',
-                headerName: 'Email',
+                field: 'name',
+                headerName: 'Category name',
                 headerClassName: 'header-row',
-                width: 300,
-            },
-            {
-                field: 'gender',
-                headerName: 'Gender',
-                headerClassName: 'header-row',
-                width: 100,
-            },
-            {
-                field: 'status',
-                headerName: 'Status',
-                headerClassName: 'header-row',
-                width: 150,
                 editable: true,
-                type: 'singleSelect',
-                valueOptions: ['active', 'banned'],
+                width: 170,
             },
             {
-                field: 'role',
-                headerName: 'Role',
+                field: 'isActive',
+                headerName: 'Is Category active',
                 headerClassName: 'header-row',
-                type: 'singleSelect',
-                valueOptions: ['admin', 'user', 'baker'],
+                width: 170,
             },
             {
                 field: 'actions',
@@ -183,27 +145,25 @@ function UserManagement() {
                 headerClassName: 'header-row',
                 flex: 1,
                 type: 'actions',
-                renderCell: (params) => <UserActions {...{ params, rowId, setRowId }} />,
+                renderCell: (params) => <CategoyActions {...{ params, rowId, setRowId }} />,
             },
         ],
         [rowId],
     );
 
     useEffect(() => {
-        const handleFetchUsers = async () => {
+        const handleFetchCategories = async () => {
             try {
-                const res = await userApi.getAll();
+                const res = await categoryApi.getAll();
 
-                setUsers(res.data.metadata);
+                setCategories(res.data.metadata);
             } catch (error) {
-                showToast('Error', 'Error fetching users');
+                showToast('Error', 'Error while fetching categories');
             }
         };
 
-        handleFetchUsers();
+        handleFetchCategories();
     }, []);
-
-    console.log(users);
 
     return (
         <Box
@@ -217,7 +177,7 @@ function UserManagement() {
             </Typography>
             <DataGrid
                 columns={columns}
-                rows={users}
+                rows={categories}
                 getRowId={(row) => row._id}
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}
@@ -228,6 +188,8 @@ function UserManagement() {
                 })}
                 processRowUpdate={(newRow) => {
                     setRowId(newRow._id);
+
+                    return newRow;
                 }}
                 onProcessRowUpdateError={(error) => console.log(error)}
                 sx={{
@@ -244,4 +206,4 @@ function UserManagement() {
     );
 }
 
-export default UserManagement;
+export default CategoryManagement;

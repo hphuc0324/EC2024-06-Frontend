@@ -23,13 +23,12 @@ function NavBar() {
                 const res = await categoryApi.getAll();
                 const categoriesMapped = res.data.metadata.map((category) => ({
                     ...category,
-                    to: `/category?type=${category._id}`,
+                    to: `/category?category=${category._id}`,
                     label: category.name,
                 }));
 
                 setCategories(categoriesMapped);
             } catch (error) {
-                console.log(error);
                 showToast('Error', 'Error while fetching categories. Please try again later');
             }
         };

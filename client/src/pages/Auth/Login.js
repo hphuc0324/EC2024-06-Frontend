@@ -21,7 +21,13 @@ function Login() {
             const action = await dispatch(login(values));
 
             const resultAction = unwrapResult(action);
-            navigate('/');
+            const role = resultAction.role;
+
+            if (role === 'user') {
+                navigate('/');
+            } else if (role === 'admin') {
+                navigate('/admin');
+            }
         } catch (err) {}
     };
 

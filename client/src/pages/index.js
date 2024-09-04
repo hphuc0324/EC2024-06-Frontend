@@ -12,8 +12,10 @@ export { default as CartPage } from './Cart';
 export { default as PaymentPage } from './Payment';
 export { default as ProfilePage } from './Profile';
 export { default as UserProfilePage } from './Profile/UserInfo';
+export { default as UserOrdersPage } from './Profile/UserOrders';
 
 // Admin
 export { default as AdminPage } from './Admin';
 export { default as AdminProduct } from './Admin/CakeManagement';
 export { default as AdminUser } from './Admin/UserManagement';
+export { default as AdminCategory } from './Admin/CategoryManagement';

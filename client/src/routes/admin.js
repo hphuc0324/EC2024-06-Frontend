@@ -17,6 +17,11 @@ const adminRoutes = [
         element: pages.AdminUser,
         layout: layouts.AdminLayout,
     },
+    {
+        path: '/admin/categories',
+        element: pages.AdminCategory,
+        layout: layouts.AdminLayout,
+    },
 ];
 
 export default adminRoutes;

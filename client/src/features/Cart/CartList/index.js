@@ -14,11 +14,7 @@ const cx = classNames.bind(styles);
 function CartList(props) {
     const { cartItems, allowEdit = true } = props;
 
-    const hanldeChange = (value) => {
-        console.log(value);
-    };
-
-    console.log('cart items', cartItems);
+    const hanldeChange = (value) => {};
 
     return (
         <div className={cx('wrapper')}>
