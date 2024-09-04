@@ -41,16 +41,17 @@ function Profile() {
                     onClick={() => navigate('/profile/orders')}
                     sx={{
                         borderRadius: '12px',
+                        minWidth: '235px',
                         cursor: 'pointer',
                         '&:hover': {
                             transform: 'scale(1.05)',
                         },
                     }}
                 >
-                    <Stack padding="48px 32px" direction="row" alignItems="center" spacing={2}>
+                    <Stack padding="48px 32px" direction="row" alignItems="center" spacing={2} width="100%">
                         <LocalAtmIcon fontSize="large" />
                         <Typography fontWeight="600" variant="h4">
-                            Personal info
+                            Orders
                         </Typography>
                     </Stack>
                 </Paper>

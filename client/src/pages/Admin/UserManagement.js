@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress, Fab } from '@mui/material';
 import { Check, Save } from '@mui/icons-material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import userApi from 'api/userApi';
 
 const rows = [
     {
@@ -78,6 +79,7 @@ const UserActions = ({ params, rowId, setRowId }) => {
 
     const handleSubmit = () => {
         setLoading(true);
+        console.log(rowId);
     };
 
     return (
@@ -174,7 +176,6 @@ function UserManagement() {
                 headerClassName: 'header-row',
                 type: 'singleSelect',
                 valueOptions: ['admin', 'user', 'baker'],
-                editable: true,
             },
             {
                 field: 'actions',
@@ -188,6 +189,22 @@ function UserManagement() {
         [rowId],
     );
 
+    useEffect(() => {
+        const handleFetchUsers = async () => {
+            try {
+                const res = await userApi.getAll();
+
+                setUsers(res.data.metadata);
+            } catch (error) {
+                showToast('Error', 'Error fetching users');
+            }
+        };
+
+        handleFetchUsers();
+    }, []);
+
+    console.log(users);
+
     return (
         <Box
             sx={{
@@ -200,7 +217,7 @@ function UserManagement() {
             </Typography>
             <DataGrid
                 columns={columns}
-                rows={rows}
+                rows={users}
                 getRowId={(row) => row._id}
                 rowsPerPageOptions={[5, 10, 20]}
                 pageSize={pageSize}

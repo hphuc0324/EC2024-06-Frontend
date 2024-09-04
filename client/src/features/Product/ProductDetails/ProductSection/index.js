@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from 'features/Cart/cartSlice';
 import { showToast } from 'components/ToastMessage';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -27,6 +28,7 @@ ProductSection.propTypes = {
 function ProductSection(props) {
     const { product, quantity, size, onSizeChange, onQuantityChange, onAddToCart, onBuy } = props;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSizeChange = (value) => {
         onSizeChange(value);
@@ -43,6 +45,18 @@ function ProductSection(props) {
             const resultAction = unwrapResult(action);
 
             showToast('Added to cart', `${product.product_name}, quantity: ${quantity}`);
+        } catch (error) {
+            showToast('Error', 'Eror while adding product to cart');
+        }
+    };
+
+    const handleBuy = async () => {
+        try {
+            const action = await dispatch(addToCart({ productId: product._id, quantity: 1 }));
+
+            const resultAction = unwrapResult(action);
+
+            navigate('/payment');
         } catch (error) {
             showToast('Error', 'Eror while adding product to cart');
         }
@@ -129,7 +143,9 @@ function ProductSection(props) {
                     <Button fullWidth classNames={cx('choice-btn', 'buy-btn')} callback={handleAddToCart}>
                         ADD TO CART
                     </Button>
-                    <Button classNames={cx('choice-btn', 'active', 'buy-btn')}>BUY NOW</Button>
+                    <Button callback={handleBuy} classNames={cx('choice-btn', 'active', 'buy-btn')}>
+                        BUY NOW
+                    </Button>
                 </div>
             </div>
         </div>

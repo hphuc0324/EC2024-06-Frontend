@@ -64,9 +64,20 @@ function Category() {
     }, [location.search]);
 
     useEffect(() => {
+        setFilters((prev) => ({
+            ...prev,
+            category: query.get('category') || undefined,
+            price: {
+                min: query.get('min'),
+                max: query.get('max'),
+            },
+        }));
+    }, []);
+
+    useEffect(() => {
         const handleFetchProducts = async () => {
             try {
-                const cleaned = { product_category: filters.category };
+                const cleaned = { product_category: filters.category, price: filters.price };
                 if (!cleaned.product_category) delete cleaned.product_category;
 
                 const res = await productApi.getAll(cleaned);

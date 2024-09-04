@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Product.module.scss';
 import productApi from 'api/productApi';
+import { relative } from 'path-browserify';
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +27,8 @@ function Product() {
         limit: 2,
     });
 
+    const [related, setRelated] = useState([]);
+
     const handleChangeReviewPage = (value) => {
         setReviews((prev) => ({ ...prev, page: value }));
     };
@@ -39,6 +42,21 @@ function Product() {
         handleFetchProduct();
     }, [_id]);
 
+    useEffect(() => {
+        if (!product) {
+            console.log('Product is null or undefined');
+            return; // Exit early if product is undefined or null
+        }
+        const handleFetchRelated = async () => {
+            const res = await productApi.getAll({ product_category: product.product_category });
+            const relatedProducts = res.data.metadata.filter((p) => p._id !== product._id);
+
+            setRelated(relatedProducts);
+        };
+
+        handleFetchRelated();
+    }, [product]);
+
     return (
         <div className={cx('wrapper')}>
             {product && (
@@ -51,7 +69,7 @@ function Product() {
                     onReviewPageChange={handleChangeReviewPage}
                 />
             )}
-            {/* <ProductList products={[1, 2, 3, 4, 5, 6]} itemPerRow={3} /> */}
+            <ProductList products={related} itemPerRow={3} />
         </div>
     );
 }

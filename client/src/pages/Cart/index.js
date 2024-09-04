@@ -9,12 +9,15 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from 'features/Cart/cartSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 const cx = classNames.bind(styles);
 
 function Cart() {
     const cartItems = useSelector((state) => state.cart.items);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleFetchCart = async () => {
@@ -51,6 +54,11 @@ function Cart() {
                             <span className={cx('total-price')}> {toVND(500000)}</span>
                         </div>
                     </div>
+                    <Box display="flex" justifyContent="flex-end">
+                        <Button classNames={cx('payment-btn')} callback={() => navigate('/payment')}>
+                            To payment
+                        </Button>
+                    </Box>
                 </div>
             )}
 

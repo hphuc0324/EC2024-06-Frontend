@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress, Fab } from '@mui/material';
 import { Check, Save } from '@mui/icons-material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
 import categoryApi from 'api/categoryApi';
 
 const CategoyActions = ({ params, rowId, setRowId }) => {
@@ -14,8 +15,31 @@ const CategoyActions = ({ params, rowId, setRowId }) => {
         if (rowId === params.id && success) setSuccess(false);
     }, [rowId]);
 
-    const handleSubmit = () => {
-        setLoading(true);
+    const handleSubmit = async () => {
+        const { name, isActive } = params.row;
+
+        try {
+            setLoading(true);
+
+            const res = await categoryApi.update(rowId, { category_name: name, isActive });
+            console.log(res);
+            showToast('Success', 'Updated category successfully');
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+
+            showToast('Error', 'Error while updating category');
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const res = await categoryApi.delete(rowId);
+
+            showToast('Success', 'Deleted category successfully');
+        } catch (error) {
+            showToast('Error', 'Error while deleting category');
+        }
     };
 
     return (
@@ -68,6 +92,23 @@ const CategoyActions = ({ params, rowId, setRowId }) => {
                     }}
                 />
             )}
+
+            <Fab
+                sx={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: 'transparent',
+                    cursor: 'pointer',
+                    marginLeft: '10px',
+                }}
+                onClick={handleDelete}
+            >
+                <DeleteIcon
+                    sx={{
+                        color: 'white',
+                    }}
+                />
+            </Fab>
         </Box>
     );
 };
@@ -147,6 +188,8 @@ function CategoryManagement() {
                 })}
                 processRowUpdate={(newRow) => {
                     setRowId(newRow._id);
+
+                    return newRow;
                 }}
                 onProcessRowUpdateError={(error) => console.log(error)}
                 sx={{

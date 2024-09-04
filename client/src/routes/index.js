@@ -65,7 +65,7 @@ const routes = [
     },
     {
         path: '/profile/orders',
-        element: pages.ProfilePage,
+        element: pages.UserOrdersPage,
         layout: layouts.DefaultLayout,
         authen: true,
     },
